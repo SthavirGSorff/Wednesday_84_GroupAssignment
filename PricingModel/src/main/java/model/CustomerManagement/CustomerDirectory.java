@@ -6,6 +6,7 @@
 package model.CustomerManagement;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import model.Business.Business;
 import model.Personnel.Person;
@@ -25,12 +26,19 @@ public class CustomerDirectory {
         customerlist = new ArrayList();
 
     }
-
+    public CustomerDirectory() {
+        customerlist = new ArrayList<>();
+    }
+    
     public CustomerProfile newCustomerProfile(Person p) {
 
-        CustomerProfile sp = new CustomerProfile(p);
-        customerlist.add(sp);
-        return sp;
+        CustomerProfile cp = new CustomerProfile(p);
+        customerlist.add(cp);
+        return cp;
+    }
+    
+     public ArrayList<CustomerProfile> getCustomerlist() {
+        return customerlist;
     }
 
     public CustomerProfile findCustomer(String id) {
@@ -53,4 +61,9 @@ public class CustomerDirectory {
         }
         return customersreport; 
     } 
+    public CustomerProfile pickRandomCustomer() {
+        if (customerlist.isEmpty()) return null;
+        int randomIndex = new Random().nextInt(customerlist.size());
+        return customerlist.get(randomIndex);
+    }
 }
