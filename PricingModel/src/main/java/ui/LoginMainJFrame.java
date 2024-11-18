@@ -17,6 +17,7 @@ import model.Supplier.Supplier;
 import model.Supplier.SupplierDirectory;
 import ui.SupplierWorkAreaJPanel;
 
+
 /**
  *
  * @author lydia
