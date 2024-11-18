@@ -19,7 +19,6 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
     JPanel mainWorkArea;
     Supplier supplier;
 
-    
     /**
      * Creates new form ProductManagerWorkAreaJPanel
      */
@@ -28,20 +27,22 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         initComponents();
         this.mainWorkArea = mainWorkArea;
         this.supplier = supplier;
-        
+
         setPreferredSize(new Dimension(900, 800));
-    
-    // Make the split pane maintain its divider location
-    splitPane.setResizeWeight(0.1);
-        if (supplier != null) lblWelcome.setText("Welcome, "+ supplier.getName());
+
+        // Make the split pane maintain its divider location
+        splitPane.setResizeWeight(0.1);
+        if (supplier != null) {
+            lblWelcome.setText("Welcome, " + supplier.getName());
+        }
         refreshUI();
 
     }
-    
+
     public void refreshUI() {
         if (supplier != null) {
             lblWelcome.setText("Welcome, " + supplier.getName());
-        }    
+        }
     }
 
     /**
@@ -59,8 +60,8 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         lblWelcome = new javax.swing.JLabel();
         btnPricePerformance = new javax.swing.JButton();
         btnAdjustPrice = new javax.swing.JButton();
-        btnRunSimulation = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
+        btnFinalReport = new javax.swing.JButton();
 
         splitPane.setDividerLocation(90);
         splitPane.setDividerSize(1);
@@ -92,15 +93,6 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         });
         menuBar.add(btnAdjustPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
 
-        btnRunSimulation.setText("Run Simulation");
-        btnRunSimulation.setEnabled(false);
-        btnRunSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRunSimulationActionPerformed(evt);
-            }
-        });
-        menuBar.add(btnRunSimulation, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
-
         btnLogOut.setText("Log Out");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,6 +100,14 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         menuBar.add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
+
+        btnFinalReport.setText("Final Report");
+        btnFinalReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalReportActionPerformed(evt);
+            }
+        });
+        menuBar.add(btnFinalReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
 
         splitPane.setLeftComponent(menuBar);
 
@@ -134,17 +134,11 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnAdjustPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdjustPriceActionPerformed
         // TODO add your handling code here:
-        PriceAdjustmentJPanel atpjp = new PriceAdjustmentJPanel(workArea,supplier);
-        workArea.add("AdjustTargetPriceJPanel",atpjp);
+        PriceAdjustmentJPanel atpjp = new PriceAdjustmentJPanel(workArea, supplier);
+        workArea.add("AdjustTargetPriceJPanel", atpjp);
         CardLayout layout = (CardLayout) workArea.getLayout();
         layout.next(workArea);
     }//GEN-LAST:event_btnAdjustPriceActionPerformed
-
-    private void btnRunSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunSimulationActionPerformed
-        // TODO add your handling code here:
-        
-
-    }//GEN-LAST:event_btnRunSimulationActionPerformed
 
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         // TODO add your handling code here:
@@ -162,12 +156,37 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnLogOutActionPerformed
 
+    private void btnFinalReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalReportActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Final Report button clicked"); // Debug message
+
+        try {
+            FinalReportJPanel finalReport = new FinalReportJPanel(mainWorkArea, supplier);  // Changed workArea to mainWorkArea
+            mainWorkArea.add(finalReport, "FinalReportPanel");  // Changed workArea to mainWorkArea
+            CardLayout layout = (CardLayout) mainWorkArea.getLayout();  // Changed workArea to mainWorkArea
+            layout.show(mainWorkArea, "FinalReportPanel");
+            System.out.println("Final Report panel added and shown");
+        } catch (Exception e) {
+            System.out.println("Error showing Final Report panel: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnFinalReportActionPerformed
+    public String toString() {
+        return "Supplier";
+    }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+        refreshUI();
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdjustPrice;
+    private javax.swing.JButton btnFinalReport;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnPricePerformance;
-    private javax.swing.JButton btnRunSimulation;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JPanel menuBar;
     private javax.swing.JSplitPane splitPane;

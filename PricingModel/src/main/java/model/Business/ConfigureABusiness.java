@@ -38,32 +38,32 @@ import model.UserAccountManagement.UserAccountDirectory;
  */
 public class ConfigureABusiness {
 
-    public static Business initialize() {
-        Business business = new Business("Xerox");
-
+  public static Business initialize() {
+      Business business = new Business("Xerox");
+        
         // Initialize directories if needed
         if (business.getSupplierDirectory() == null) {
             System.out.println("Supplier Directory is null!");
             return business;
         }
-
+        
         // Add sample data
         loadSuppliers(business, 5);  // 5 suppliers
         loadProducts(business, 10);   // 10 products per supplier
         loadCustomers(business, 10);  // 10 customers
         loadOrders(business, 10, 5);  // 10 orders with up to 5 items each
-
+        
         return business;
-    }
-    private static final int UPPER_PRICE_LIMIT = 100;
+  }
+   private static final int UPPER_PRICE_LIMIT = 100;
     private static final int LOWER_PRICE_LIMIT = 20;
     private static final int PRICE_RANGE = 10;
     private static final int MAX_QUANTITY = 5;
-
     private static int getRandom(int lower, int upper) {
         Random r = new Random();
         return lower + r.nextInt(upper - lower);
     }
+
 
     public static Business createABusinessAndLoadALotOfData(String name, int supplierCount, int productCount,
             int customerCount, int orderCount, int itemCount) {
@@ -154,10 +154,14 @@ public class ConfigureABusiness {
         }
     }
 
-    private static void loadCustomers(Business b, int count) {
+    // get a random number from range [lower, upper), i.e. include lower bound,
+    // exclude upper bound
+ 
+
+     private static void loadCustomers(Business b, int count) {
         CustomerDirectory cd = b.getCustomerDirectory();
         PersonDirectory pd = b.getPersonDirectory();
-
+        
         for (int i = 1; i <= count; i++) {
             Person person = pd.newPerson("" + i);  // Create person with ID
             CustomerProfile customerProfile = new CustomerProfile(person);
@@ -167,6 +171,7 @@ public class ConfigureABusiness {
         System.out.println("Added " + count + " customers");
     }
 
+   
     static void addOrders(Business b, int customerCount, int maxOrderCount, int maxItemCount) {
         // choose a number of customers
         CustomerDirectory customerDirectory = b.getCustomerDirectory();
@@ -214,7 +219,7 @@ public class ConfigureABusiness {
 
     }
 
-    private static void loadOrders(Business b, int ordersPerSupplier, int maxItemsPerOrder) {
+   private static void loadOrders(Business b, int ordersPerSupplier, int maxItemsPerOrder) {
         MasterOrderList mol = b.getMasterOrderList();
         CustomerDirectory cd = b.getCustomerDirectory();
         Random r = new Random();
@@ -233,17 +238,15 @@ public class ConfigureABusiness {
                 }
 
                 Order order = mol.newOrder(customer);
-
+                
                 // Add random number of items to order
                 int itemCount = 1 + r.nextInt(maxItemsPerOrder);
                 ProductCatalog pc = supplier.getProductCatalog();
-
+                
                 for (int j = 0; j < itemCount; j++) {
                     Product product = pc.pickRandomProduct();
-                    if (product == null) {
-                        continue;
-                    }
-
+                    if (product == null) continue;
+                    
                     int price = getRandom(product.getFloorPrice(), product.getCeilingPrice());
                     int quantity = getRandom(1, MAX_QUANTITY);
                     order.newOrderItem(product, price, quantity);
@@ -251,7 +254,7 @@ public class ConfigureABusiness {
             }
         }
         System.out.println("Added orders with random items");
-
+    
     }
 
     static void getCustomerSalesOrders(Business b, int customerCount) {
@@ -271,6 +274,8 @@ public class ConfigureABusiness {
 //            }
 //        }
     }
+
+    
 
     static void getBestSupplier(Business b) {
         SupplierDirectory supplierDirectory = b.getSupplierDirectory();
@@ -325,7 +330,7 @@ public class ConfigureABusiness {
         System.out.println("The supplier with least sales is " + worstSupplier.getName() + " with total sales volume "
                 + minimumSales);
     }
-
+    
     private static void generateSuppliersAndProducts(Business business, int supplierCount, int productsPerSupplier) {
         SupplierDirectory supplierDirectory = business.getSupplierDirectory();
         Random random = new Random();
@@ -341,21 +346,19 @@ public class ConfigureABusiness {
                 int floorPrice = LOWER_PRICE_LIMIT + random.nextInt(PRICE_RANGE);
                 int ceilingPrice = UPPER_PRICE_LIMIT - random.nextInt(PRICE_RANGE);
                 int targetPrice = floorPrice + random.nextInt(ceilingPrice - floorPrice);
-
+                
                 String productName = "Product " + j + " (Supplier " + i + ")";
                 productCatalog.newProduct(productName, floorPrice, ceilingPrice, targetPrice);
             }
         }
     }
-
     private static void generateCustomers(Business business, int customerCount) {
         CustomerDirectory customerDirectory = business.getCustomerDirectory();
-
+        
         for (int i = 1; i <= customerCount; i++) {
             CustomerProfile customer = customerDirectory.newCustomerProfile("Customer " + i);
         }
     }
-
     private static void generateOrders(Business business, int ordersPerProduct) {
         Random random = new Random();
         SupplierDirectory supplierDirectory = business.getSupplierDirectory();
@@ -364,24 +367,22 @@ public class ConfigureABusiness {
         // For each supplier
         for (Supplier supplier : supplierDirectory.getSuplierList()) {
             ProductCatalog catalog = supplier.getProductCatalog();
-
+            
             // For each product
             for (Product product : catalog.getProductList()) {
                 // Generate orders
                 for (int i = 0; i < ordersPerProduct; i++) {
                     // Randomly select a customer
                     CustomerProfile customer = customerDirectory.pickRandomCustomer();
-                    if (customer == null) {
-                        continue;
-                    }
+                    if (customer == null) continue;
 
                     // Create new order
                     Order order = business.getMasterOrderList().newOrder(customer);
 
                     // Generate random actual price between floor and ceiling
-                    int actualPrice = product.getFloorPrice()
-                            + random.nextInt(product.getCeilingPrice() - product.getFloorPrice());
-
+                    int actualPrice = product.getFloorPrice() + 
+                                    random.nextInt(product.getCeilingPrice() - product.getFloorPrice());
+                    
                     // Generate random quantity between 1 and 5
                     int quantity = 1 + random.nextInt(5);
 
@@ -392,3 +393,6 @@ public class ConfigureABusiness {
         }
     }
 }
+
+
+

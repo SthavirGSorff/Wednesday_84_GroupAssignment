@@ -41,7 +41,8 @@ public class Business {
     SalesPersonDirectory salespersondirectory;
     UserAccountDirectory useraccountdirectory;
     MarketingPersonDirectory marketingpersondirectory;
-
+    
+    
     public Business(String n) {
         name = n;
         masterorderlist = new MasterOrderList();
@@ -54,6 +55,13 @@ public class Business {
         marketingpersondirectory = new MarketingPersonDirectory(this);
         employeedirectory = new EmployeeDirectory(this);
 
+    }
+    public Business() {
+        suppliers = new SupplierDirectory();
+    }
+    
+     public SupplierDirectory getSupplierDirectory() {
+        return suppliers;
     }
 
     public int getSalesVolume() {
@@ -72,9 +80,6 @@ public class Business {
         return marketingpersondirectory;
     }
 
-    public SupplierDirectory getSupplierDirectory() {
-        return suppliers;
-    }
 
     public ProductsReport getSupplierPerformanceReport(String n) {
         Supplier supplier = suppliers.findSupplier(n);
@@ -112,5 +117,8 @@ public class Business {
         public EmployeeDirectory getEmployeeDirectory() {
         return employeedirectory;
     }
+
+   
+        
 
 }
