@@ -4,17 +4,44 @@
  */
 package ui;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import javax.swing.JPanel;
+import model.Supplier.Supplier;
+
 /**
  *
  * @author vinaypawar
  */
 public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
+    JPanel mainWorkArea;
+    Supplier supplier;
+
+    
     /**
-     * Creates new form SupplierWorkAreaJPanel
+     * Creates new form ProductManagerWorkAreaJPanel
      */
-    public SupplierWorkAreaJPanel() {
+    public SupplierWorkAreaJPanel(JPanel mainWorkArea, Supplier supplier) {
+
         initComponents();
+        this.mainWorkArea = mainWorkArea;
+        this.supplier = supplier;
+        
+        setPreferredSize(new Dimension(900, 800));
+    
+    // Make the split pane maintain its divider location
+    splitPane.setResizeWeight(0.1);
+        if (supplier != null) lblWelcome.setText("Welcome, "+ supplier.getName());
+        refreshUI();
+
+    }
+    
+    public void refreshUI() {
+        if (supplier != null) {
+            lblWelcome.setText("Welcome, " + supplier.getName());
+        }    
     }
 
     /**
@@ -26,7 +53,7 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
+        splitPane = new javax.swing.JSplitPane();
         workArea = new javax.swing.JPanel();
         menuBar = new javax.swing.JPanel();
         lblWelcome = new javax.swing.JLabel();
@@ -35,14 +62,14 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         btnRunSimulation = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
 
-        jSplitPane1.setDividerLocation(90);
-        jSplitPane1.setDividerSize(1);
-        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane1.setResizeWeight(0.1);
-        jSplitPane1.setToolTipText("");
+        splitPane.setDividerLocation(90);
+        splitPane.setDividerSize(1);
+        splitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        splitPane.setResizeWeight(0.1);
+        splitPane.setToolTipText("");
 
         workArea.setLayout(new java.awt.CardLayout());
-        jSplitPane1.setBottomComponent(workArea);
+        splitPane.setBottomComponent(workArea);
 
         menuBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -82,17 +109,17 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
         });
         menuBar.add(btnLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
 
-        jSplitPane1.setLeftComponent(menuBar);
+        splitPane.setLeftComponent(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(splitPane, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -115,6 +142,7 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnRunSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunSimulationActionPerformed
         // TODO add your handling code here:
+        
 
     }//GEN-LAST:event_btnRunSimulationActionPerformed
 
@@ -140,9 +168,9 @@ public class SupplierWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnPricePerformance;
     private javax.swing.JButton btnRunSimulation;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel lblWelcome;
     private javax.swing.JPanel menuBar;
+    private javax.swing.JSplitPane splitPane;
     private javax.swing.JPanel workArea;
     // End of variables declaration//GEN-END:variables
 }
