@@ -49,5 +49,8 @@ public class ProductsReport {
 
         return productsalwaysabovetarget;
     }
+    public ArrayList<ProductSummary> getProductSummaries() {
+        return productsummarylist;
+    }
 
 }

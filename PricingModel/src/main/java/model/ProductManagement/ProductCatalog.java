@@ -6,6 +6,7 @@
 package model.ProductManagement;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -50,5 +51,13 @@ public class ProductCatalog {
     public ArrayList<Product> getProductList(){
         return products;
     }
+    public Product pickRandomProduct() {
+        if (products.size() == 0)
+            return null;
+        Random r = new Random();
+        int randomIndex = r.nextInt(products.size());
+        return products.get(randomIndex);
+    }
+   
 
 }

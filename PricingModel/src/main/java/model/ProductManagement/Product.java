@@ -33,6 +33,10 @@ public class Product {
         targetPrice = tp;
         orderitems = new ArrayList();
     }
+
+    public ArrayList<OrderItem> getOrderitems() {
+        return orderitems;
+    }
         public Product updateProduct(int fp, int cp, int tp) {
         floorPrice = fp;
         ceilingPrice = cp;
@@ -97,6 +101,9 @@ public class Product {
     }
     public int getCeilingPrice(){
         return ceilingPrice;
+    }
+    public String getName() {
+        return name;
     }
 
 }
